@@ -1,0 +1,34 @@
+{
+  "name": "silkk-api",
+  "version": "1.0.0",
+  "description": "API for Silkk",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "silkk-api"
+  },
+  "keywords": [
+    "silkk",
+    "api"
+  ],
+  "author": "Daniel Radosa",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "express-jwt": "^6.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.3.1",
+    "mongoose": "^6.2.0",
+    "morgan": "^1.10.0",
+    "swagger": "^0.0.1",
+    "swagger-ui": "^4.5.0",
+    "swagger-ui-express": "^4.3.0",
+    "validator": "^13.7.0"
+  }
+}
