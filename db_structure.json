@@ -1,0 +1,62 @@
+{
+	"user": [
+		{
+			"name": "string",
+			"email": "string",
+			"password": "string"
+		},
+		{
+			"projects": [
+				{
+					"user-projects": [
+						{
+							"project1": "string"
+						}
+					]
+				}
+			]
+		}
+	],
+	"project": [
+		{
+			"title": "string",
+			"description": "string",
+			"deadline": "date",
+			"author": "string",
+			"associates": [
+				{
+					"assoc": "string"
+				}
+			],
+			"tasks": [
+				{
+					"todo": [
+						{
+							"todoOne": [
+								{
+									"title": "string",
+									"status": "boolean",
+									"items": [
+										{
+											"itemOne": "string"
+										}
+									]
+								}
+							]
+						}
+					],
+					"notes": [
+						{
+							"noteOne": [
+								{
+									"title": "string",
+									"content": "string"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
