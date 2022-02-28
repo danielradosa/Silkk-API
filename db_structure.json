@@ -3,16 +3,10 @@
 		{
 			"name": "string",
 			"email": "string",
-			"password": "string"
-		},
-		{
+			"password": "string",
 			"projects": [
 				{
-					"user-projects": [
-						{
-							"project1": "string"
-						}
-					]
+					"project1": "string"
 				}
 			]
 		}
@@ -32,27 +26,19 @@
 				{
 					"todo": [
 						{
-							"todoOne": [
+							"title": "string",
+							"status": "boolean",
+							"items": [
 								{
-									"title": "string",
-									"status": "boolean",
-									"items": [
-										{
-											"itemOne": "string"
-										}
-									]
+									"itemOne": "string"
 								}
 							]
 						}
 					],
 					"notes": [
 						{
-							"noteOne": [
-								{
-									"title": "string",
-									"content": "string"
-								}
-							]
+							"title": "string",
+							"content": "string"
 						}
 					]
 				}
