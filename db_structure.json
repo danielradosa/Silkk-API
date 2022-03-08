@@ -17,11 +17,7 @@
 			"description": "string",
 			"deadline": "date",
 			"author": "string",
-			"associates": [
-				{
-					"assoc": "string"
-				}
-			],
+			"associates": ["string"],
 			"tasks": [
 				{
 					"todo": [
