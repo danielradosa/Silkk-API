@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 let projectSchema = new Schema ({
 	title: { type: String, required: true, min: 3, max: 255 },
+	favourite: { type: Boolean, required: false },
 	description: { type: String, required: false, min: 10, max: 255 },
 	deadline: { type: Date, required: true },
 	author: { type: String, required: true },

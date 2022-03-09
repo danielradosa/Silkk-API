@@ -14,6 +14,7 @@
 	"project": [
 		{
 			"title": "string",
+			"favourite": "boolean",
 			"description": "string",
 			"deadline": "date",
 			"author": "string",
