@@ -35,16 +35,14 @@ mongoose.connection.once('open', () => console.log('Connected succesfully to Mon
 // IMPORT ROUTES
 const projectRoute = require('./routes/project');
 const authRoute = require('./routes/auth');
-const userRoute = require('./routes/user'); 
 
 // ROUTES
-app.get("/api/welcome", (req, res) => {
+app.get("/api/welcome", (res) => {
     res.status(200).send({ message: "Welcome to the Silkk-API" });
 })
 
 // CRUD
-app.use("/api/projects", projectRoute);
+app.use("/api/project", projectRoute);
 app.use("/api/user", authRoute);
-app.use("/api/users", userRoute);
 
 module.exports = app;

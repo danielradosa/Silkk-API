@@ -10,10 +10,17 @@ router.post("/create", verifyToken, (req, res) => {
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
-// Get all projects
-router.get("/author/:id", (req, res) => {
-    data = req.body;
+// Get specific project
+router.get("/:id", (req, res) => {
     projects.findById(req.params.id)
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Get all projects by author
+router.get("/author/:name", verifyToken, (req, res) => {
+    data = req.body.userProjects;
+    projects.find({ author: this.name })
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
@@ -21,13 +28,6 @@ router.get("/author/:id", (req, res) => {
 // Get all favourite projects
 router.get("/favourite/:id", (res) => {
     projects.find({ favourite: true })
-    .then(data => { res.send(data); })
-    .catch(err => { res.status(500).send({ message: err.message }); })
-});
-
-// Get specific project
-router.get("/:id", (req, res) => {
-    projects.findById(req.params.id)
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
