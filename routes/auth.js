@@ -61,6 +61,7 @@ router.post("/login", async (req, res) => {
 
 // User Logout
 router.post("/logout", async (req, res) => {
+    db = db.getSiblingDB('silkk_db_dev')
     db.logout()
 });
 
