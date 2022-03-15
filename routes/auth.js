@@ -3,6 +3,7 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation');
+const { db } = require('../models/user');
 
 // User Registration
 router.post("/register", async (req, res) => {
@@ -59,9 +60,10 @@ router.post("/login", async (req, res) => {
 });
 
 // User Logout
-router.post("/logout", async () => {
-    const db = db.getSiblingDB('silkk_db_dev')
-    db.logout()
-});
+//router.post("/logout", async () => {
+//    db = db.getSiblingDB('user')
+//   await db.logout()
+//});
+
 
 module.exports = router;
