@@ -31,6 +31,7 @@ router.post("/register", async (req, res) => {
 
 // User Login
 router.post("/login", async (req, res) => {
+    // db.logout()
     const { error } = loginValidation(req.body);
     if (error) {
         return res.status(400).json({ error: error.details[0].message });
@@ -56,6 +57,11 @@ router.post("/login", async (req, res) => {
         error: null,
         data: { token }
     });
+});
+
+// User Logout
+router.post("/logout", async (req, res) => {
+    db.logout()
 });
 
 module.exports = router;
