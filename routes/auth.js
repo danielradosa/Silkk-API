@@ -31,7 +31,6 @@ router.post("/register", async (req, res) => {
 
 // User Login
 router.post("/login", async (req, res) => {
-    // db.logout()
     const { error } = loginValidation(req.body);
     if (error) {
         return res.status(400).json({ error: error.details[0].message });
@@ -60,7 +59,7 @@ router.post("/login", async (req, res) => {
 });
 
 // User Logout
-router.post("/logout", async (req, res) => {
+router.post("/logout", async () => {
     db = db.getSiblingDB('silkk_db_dev')
     db.logout()
 });
