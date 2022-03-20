@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
     res.header("auth-token", token).json({
         error: null,
         data: { token }
-    });
+    })
 });
 
 // User Logout
@@ -64,6 +64,5 @@ router.post("/login", async (req, res) => {
 //    db = db.getSiblingDB('user')
 //   await db.logout()
 //});
-
 
 module.exports = router;

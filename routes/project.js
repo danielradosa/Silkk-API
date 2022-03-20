@@ -41,5 +41,4 @@ router.get("/favourite/:author", verifyToken, (req, res) => {
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
-
 module.exports = router;

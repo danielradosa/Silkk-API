@@ -7,6 +7,7 @@ let projectSchema = new Schema ({
 	description: { type: String, required: false, min: 10, max: 255 },
 	deadline: { type: Date, required: true },
 	author: { type: String, required: true },
+	authorEmail: { type: String, required: true },
 	associates: { type: Array, required: false },
 	tasks: [{
 		todo: [{
