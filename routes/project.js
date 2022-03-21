@@ -26,7 +26,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Get all projects by author
-router.get("/all/:authorEmail", verifyToken, (req, res) => {
+router.get("/all/:authorEmail",/*verifyToken,*/ (req, res) => {
     data = req.params.authorEmail;
     project.find({ authorEmail: data })
     .then(data => { res.send(data); })
