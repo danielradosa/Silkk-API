@@ -25,18 +25,18 @@ router.get("/:id", (req, res) => {
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
-// Get all favourite projects by author
-router.get("/favourite/:authorEmail", /*verifyToken,*/ (req, res) => {
-    data = req.params.author;
-    project.find({ author: data }, {favourite: 'true'})
+// Get all non-favourite projects by author
+router.get("/normal/:authorEmail", /*verifyToken,*/ (req, res) => {
+    data = req.params.authorEmail;
+    project.find({ authorEmail: data }, { favourite: "false" })
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
-// Get all non-favourite projects by author
-router.get("/normal/:authorEmail", /*verifyToken,*/ (req, res) => {
+// Get all favourite projects by author
+router.get("/favorite/:authorEmail", /*verifyToken,*/ (req, res) => {
     data = req.params.authorEmail;
-    project.find({ authorEmail: data }, {favourite: 'false'})
+    project.find({ author: data }, { favourite: "true" })
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
