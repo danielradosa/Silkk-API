@@ -11,7 +11,7 @@ router.post("/create", verifyToken, (req, res) => {
 });
 
 // Get all projects ever
-router.get("/all", (req, res) => {
+router.get("/all", verifyToken, (req, res) => {
     data = req.body;
     project.find(data)
     .then(data => { res.send(data); })
@@ -26,7 +26,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Get all favourite projects by author
-router.get("/favourite/:authorEmail", verifyToken, (req, res) => {
+router.get("/favourite/:authorEmail", /*verifyToken,*/ (req, res) => {
     data = req.params.author;
     project.find({ author: data }, {favourite: 'true'})
     .then(data => { res.send(data); })
@@ -34,7 +34,7 @@ router.get("/favourite/:authorEmail", verifyToken, (req, res) => {
 });
 
 // Get all non-favourite projects by author
-router.get("/normal/:authorEmail", verifyToken, (req, res) => {
+router.get("/normal/:authorEmail", /*verifyToken,*/ (req, res) => {
     data = req.params.authorEmail;
     project.find({ authorEmail: data }, {favourite: 'false'})
     .then(data => { res.send(data); })
