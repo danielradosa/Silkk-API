@@ -19,14 +19,14 @@ router.get("/all", verifyToken, (req, res) => {
 });
 
 // Get specific project
-router.get("/:id", (req, res) => {
+router.get("/:id", verifyToken, (req, res) => {
     project.findById(req.params.id)
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
 // Get all projects by author
-router.get("/all/:authorEmail",/*verifyToken,*/ (req, res) => {
+router.get("/all/:authorEmail", verifyToken, (req, res) => {
     data = req.params.authorEmail;
     project.find({ authorEmail: data })
     .then(data => { res.send(data); })
