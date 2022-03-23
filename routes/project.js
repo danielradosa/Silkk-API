@@ -33,4 +33,18 @@ router.get("/all/:authorEmail", verifyToken, (req, res) => {
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
+// Delete project 
+router.delete("/delete/:id", verifyToken, (req, res) => {
+    const id = req.params.id;
+    project.findByIdAndDelete(id)
+    .then(data => {
+        if (!data) {
+            res.status(404).send({ message: "Cannot delete project with id: " + id});
+        } else {
+            res.send({ message: "Project was deleted."})
+        }
+    })
+    .catch(err => { res.status(500).send({ message: "Error deleting project with id: " + id }); })
+});
+
 module.exports = router;
