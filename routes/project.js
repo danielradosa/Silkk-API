@@ -36,7 +36,7 @@ router.get("/all/:authorEmail", verifyToken, (req, res) => {
 // Add specific project to favorites
 router.put("/addfavorite/:id", verifyToken, (req, res) => {
     data = req.params.id;
-    project.findByIdAndUpdate(data, { $push: { favourite: true } })
+    project.findByIdAndUpdate(data, { $set: { favourite: true } })
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
