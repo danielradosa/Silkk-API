@@ -41,6 +41,14 @@ router.put("/addfavorite/:id", verifyToken, (req, res) => {
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
+// Remove specific project from favorites
+router.put("/removefavorite/:id", verifyToken, (req, res) => {
+    data = req.params.id;
+    project.findByIdAndUpdate(data, { $set: { favourite: false } })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
 // Delete project 
 router.delete("/delete/:id", verifyToken, (req, res) => {
     const id = req.params.id;
