@@ -5,6 +5,14 @@ const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation');
 const { db } = require('../models/user');
 
+// Get user by email
+router.get('/:email', async (req, res) => {
+    const email = req.params.email;
+    const user = await User.findOne({ email: email });
+    if (!user) return res.status(404).send('User not found');
+    res.send(user);
+});
+
 // User Registration
 router.post("/register", async (req, res) => {
     const { error } = registerValidation(req.body);
