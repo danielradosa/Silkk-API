@@ -8,7 +8,7 @@ const { db } = require('../models/user');
 // Get user by email
 router.get('/:email', async (req, res) => {
     const email = req.params.authorEmail;
-    const user = await User.findOne({ authorEmail: email });
+    const user = await User.find({ authorEmail: email });
     if (!user) return res.status(404).send('User not found');
     res.send(user);
 });
