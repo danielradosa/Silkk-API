@@ -1,16 +1,9 @@
 const router = require('express').Router();
 const User = require('../models/user');
+const Project = require('../models/project');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation');
-
-// Get user by email
-router.get('/:email', async (req, res) => {
-    const email = req.params.authorEmail;
-    const user = await User.findOne({ authorEmail: email });
-    if (!user) return res.status(404).send('User not found');
-    res.send(user);
-});
 
 // User Registration
 router.post("/register", async (req, res) => {
@@ -64,6 +57,15 @@ router.post("/login", async (req, res) => {
         error: null,
         data: { token }
     })
+});
+
+// Get user by email
+router.get("/:email", async (req, res) => {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+        return res.status(400).json({ error: "User not found" });
+    }
+    res.json({ error: null, data: user });
 });
 
 // User Logout
