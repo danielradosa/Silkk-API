@@ -33,6 +33,13 @@ router.get("/all/:authorEmail", verifyToken, (req, res) => {
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
+// Update a project
+router.put("/updatetitle/:id", verifyToken, (req, res) => {
+    project.findByIdAndUpdate(req.params.id, req.body)
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
 // Add specific project to favorites
 router.put("/addfavorite/:id", verifyToken, (req, res) => {
     data = req.params.id;
