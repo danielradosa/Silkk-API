@@ -70,4 +70,22 @@ router.delete("/delete/:id", verifyToken, (req, res) => {
     .catch(err => { res.status(500).send({ message: "Error deleting project with id: " + id }); })
 });
 
+////////////////// TASK CALLS /////////////////////////////////////////////////////////////////////
+
+// Create a new todo task
+router.post("/create/todo/:id", verifyToken, (req, res) => {
+    data = req.body;
+    project.findByIdAndUpdate(req.params.id, { $push: { tasks: data } })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Create a new note task
+router.post("/create/note/:id", verifyToken, (req, res) => {
+    data = req.body;
+    project.findByIdAndUpdate(req.params.id, { $push: { tasks: data } })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
 module.exports = router;

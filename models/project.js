@@ -13,9 +13,6 @@ let projectSchema = new Schema ({
 		todo: [{
 			taskTitle: { type: String, required: true, min: 3, max: 255 },
 			status: { type: Boolean, required: true },
-			items: [{
-				singleItem: { type: String, required: true, min: 3, max: 255 }
-			}]
 		}],
 		notes: [{
 			noteTitle: { type: String, required: true, min: 3, max: 255 },
