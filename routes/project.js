@@ -2,6 +2,8 @@ const router = require("express").Router();
 const project = require("../models/project");
 const { verifyToken } = require("../validation");
 
+////////////// PROJECT CALLS /////////////////////////////////////////////////
+
 // Create a new project
 router.post("/create", verifyToken, (req, res) => {
     data = req.body;
@@ -72,19 +74,65 @@ router.delete("/delete/:id", verifyToken, (req, res) => {
 
 ////////////////// TASK CALLS /////////////////////////////////////////////////////////////////////
 
+// TODO CRUD /////////////////
+
 // Create a new todo task
-router.post("/create/todo/:id", verifyToken, (req, res) => {
+router.post("/todo/create/:id", verifyToken, (req, res) => {
     data = req.body;
-    project.findByIdAndUpdate(req.params.id, { $push: { tasks: data } })
+    project.findByIdAndUpdate(req.params.id, { $push: { todo: data } })
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
-// Create a new note task
-router.post("/create/note/:id", verifyToken, (req, res) => {
-    data = req.body;
-    project.findByIdAndUpdate(req.params.id, { $push: { tasks: data } })
+// Update a todo task
+router.put("/todo/update/:id/:todoId", verifyToken, (req, res) => {
+    project.findByIdAndUpdate(req.params.id, { $set: { "todo.$[i].status": true } }, { arrayFilters: [{ "i.id": req.params.todoId }] })
     .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Delete a todo task
+router.delete("/todo/delete/:id/:todoId", verifyToken, (req, res) => {
+    project.findByIdAndUpdate(req.params.id, { $pull: { todo: { id: req.params.todoId } } })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Get all todo tasks
+router.get("/todo/all/:id", verifyToken, (req, res) => {
+    project.findById(req.params.id)
+    .then(data => { res.send(data.todo); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// NOTE CRUD ///////////////////
+
+// Create a new note task
+router.post("/note/create/:id", verifyToken, (req, res) => {
+    data = req.body;
+    project.findByIdAndUpdate(req.params.id, { $push: { notes: data } })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Update a note task
+router.put("/note/update/:id/:noteId", verifyToken, (req, res) => {
+    project.findByIdAndUpdate(req.params.id, { $set: { "notes.$[i].title": req.body.title, "notes.$[i].content": req.body.content } }, { arrayFilters: [{ "i.id": req.params.noteId }] })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Delete a note task
+router.delete("/note/delete/:id/:noteId", verifyToken, (req, res) => {
+    project.findByIdAndUpdate(req.params.id, { $pull: { notes: { id: req.params.noteId } } })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Get all note tasks
+router.get("/note/all/:id", verifyToken, (req, res) => {
+    project.findById(req.params.id)
+    .then(data => { res.send(data.notes); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
