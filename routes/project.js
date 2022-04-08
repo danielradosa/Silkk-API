@@ -76,10 +76,10 @@ router.delete("/delete/:id", verifyToken, (req, res) => {
 
 // TODO CRUD /////////////////
 
-// Create a new todo task
+// Cerate a new task
 router.post("/todo/create/:id", verifyToken, (req, res) => {
     data = req.body;
-    project.findByIdAndUpdate(req.params.id, { $push: { todo: data } })
+    project.insertMany(req.params.id, { $push: { todo: data } })
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
