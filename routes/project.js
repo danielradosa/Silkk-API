@@ -94,7 +94,7 @@ router.put("/todo/complete/:id/:todoId", verifyToken, (req, res) => {
 });
 
 // Uncomplete a todo task
-router.put("/todo/complete/:id/:todoId", verifyToken, (req, res) => {
+router.put("/todo/uncomplete/:id/:todoId", verifyToken, (req, res) => {
     const id = req.params.id;
     const todoId = req.params.todoId;
     project.findByIdAndUpdate(id, { $set: { "todo.$[elem].status": false } }, { arrayFilters: [{ "elem._id": todoId }] })
