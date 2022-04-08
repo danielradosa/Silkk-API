@@ -79,7 +79,7 @@ router.delete("/delete/:id", verifyToken, (req, res) => {
 // Create a new task
 router.post("/todo/create/:projId", verifyToken, (req, res) => {
     data = req.body;
-    project.findByIdAndUpdate(data.projectId, { $push: { todo: data } })
+    project.findByIdAndUpdate(req.params.projId, { $push: { todo: data } })
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
