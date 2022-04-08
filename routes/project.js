@@ -77,7 +77,7 @@ router.delete("/delete/:id", verifyToken, (req, res) => {
 // TODO CRUD /////////////////
 
 // Create a new task
-router.post("/todo/create", verifyToken, (req, res) => {
+router.post("/todo/create/:projId", verifyToken, (req, res) => {
     data = req.body;
     project.findByIdAndUpdate(data.projectId, { $push: { todo: data } })
     .then(data => { res.send(data); })
