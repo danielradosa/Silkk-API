@@ -76,61 +76,71 @@ router.delete("/delete/:id", verifyToken, (req, res) => {
 
 // TODO CRUD /////////////////
 
-// Create a new task
-router.post("/todo/create/:projId", verifyToken, (req, res) => {
+// Create a new todo list
+router.post("/list/create/:projectId", verifyToken, (req, res) => {
     data = req.body;
-    project.findByIdAndUpdate(req.params.projId, { $push: { todo: data } })
+    project.findByIdAndUpdate(req.params.id, { $push: { list: data } })
     .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
-// Complete a todo task
-router.put("/todo/complete/:id/:todoId", verifyToken, (req, res) => {
-    const id = req.params.id;
-    const todoId = req.params.todoId;
-    project.findByIdAndUpdate(id, { $set: { "todo.$[elem].status": true } }, { arrayFilters: [{ "elem._id": todoId }] })
-    .then(data => { res.send(data); })
+// Get all todo lists
+router.get("/list/all/:listId", verifyToken, (req, res) => {
+    project.findById(req.params.id)
+    .then(data => { res.send(data.notes); })
     .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
-// Uncomplete a todo task
-router.put("/todo/uncomplete/:id/:todoId", verifyToken, (req, res) => {
+// Delete a todo list
+router.delete("/list/delete/:listId", verifyToken, (req, res) => {
     const id = req.params.id;
-    const todoId = req.params.todoId;
-    project.findByIdAndUpdate(id, { $set: { "todo.$[elem].status": false } }, { arrayFilters: [{ "elem._id": todoId }] })
-    .then(data => { res.send(data); })
-    .catch(err => { res.status(500).send({ message: err.message }); })
-});
-
-// Update a todo task
-router.put("/todo/complete/:id/:todoId", verifyToken, (req, res) => {
-    const id = req.params.id;
-    const todoId = req.params.todoId;
-    project.findByIdAndUpdate(id, { $set: { todo: req.body, arrayFilters: [{ "elem._id": todoId }] } })
-    .then(data => { res.send(data); })
-    .catch(err => { res.status(500).send({ message: err.message }); })
-});
-
-// Delete a todo task
-router.delete("/todo/delete/:id/:todoId", verifyToken, (req, res) => {
-    const id = req.params.id;
-    const todoId = req.params.todoId;
-    project.findByIdAndUpdate(id, { $pull: { todo: { _id: todoId } } })
+    project.findByIdAndUpdate(id, { $pull: { list: { _id: id } } })
     .then(data => {
         if (!data) {
-            res.status(404).send({ message: "Cannot delete todo with id: " + todoId});
+            res.status(404).send({ message: "Cannot delete todo list with id: " + id});
         } else {
-            res.send({ message: "Todo was deleted."})
+            res.send({ message: "Todo list was deleted."})
         }
     })
-    .catch(err => { res.status(500).send({ message: "Error deleting todo with id: " + todoId }); })
+    .catch(err => { res.status(500).send({ message: "Error deleting todo list with id: " + id }); })
 });
 
-// Get all todo tasks
-router.get("/todo/all/:id", verifyToken, (req, res) => {
-    project.findById(req.params.id)
-    .then(data => { res.send(data.todo); })
+// Create a new todo item in a todo list
+router.post("/list/item/create/:listId", verifyToken, (req, res) => {
+    data = req.body;
+    project.findByIdAndUpdate(req.params.id, { $push: { list: { $each: [data], $position: 0 } } })
+    .then(data => { res.send(data); })
     .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Complete a todo item in a todo list
+router.put("/list/item/complete/:listId", verifyToken, (req, res) => {
+    data = req.body;
+    project.findByIdAndUpdate(req.params.id, { $push: { list: { $each: [data], $position: 0 } } })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Uncoplete a todo item in a todo list
+router.put("/list/item/uncomplete/:listId", verifyToken, (req, res) => {
+    data = req.body;
+    project.findByIdAndUpdate(req.params.id, { $push: { list: { $each: [data], $position: 0 } } })
+    .then(data => { res.send(data); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Delete a todo item in a todo list
+router.delete("/list/item/delete/:listId", verifyToken, (req, res) => {
+    const id = req.params.id;
+    project.findByIdAndUpdate(id, { $pull: { list: { _id: id } } })
+    .then(data => {
+        if (!data) {
+            res.status(404).send({ message: "Cannot delete todo item with id: " + id});
+        } else {
+            res.send({ message: "Todo item was deleted."})
+        }
+    })
+    .catch(err => { res.status(500).send({ message: "Error deleting todo item with id: " + id }); })
 });
 
 // NOTE CRUD ///////////////////
