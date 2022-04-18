@@ -76,19 +76,19 @@ router.delete("/delete/:id", verifyToken, (req, res) => {
 
 // TODO CRUD /////////////////
 
+// Get all todo lists
+router.get("/list/all/:id", verifyToken, (req, res) => {
+    project.findById(req.params.id)
+    .then(data => { res.send(data.lists); })
+    .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
 // Create a new todo list
 router.post("/list/create/:projectId", verifyToken, (req, res) => {
     data = req.body;
     project.findByIdAndUpdate(req.params.id, { $push: { lists: data } })
         .then(data => { res.send(data); })
         .catch(err => { res.status(500).send({ message: err.message }); })
-});
-
-// Get all todo lists
-router.get("/list/all/:id", verifyToken, (req, res) => {
-    project.findById(req.params.id)
-    .then(data => { res.send(data.lists); })
-    .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
 // Delete a todo list

@@ -10,7 +10,7 @@ let projectSchema = new Schema({
 	authorEmail: { type: String, required: true },
 	associates: { type: Array, required: false },
 	lists: [{
-		title: { type: String, required: true, min: 3, max: 255 },
+		listTitle: { type: String, required: true, min: 3, max: 255 },
 		todo: [{
 			taskTitle: { type: String, required: true, min: 3, max: 255 },
 			status: { type: Boolean, required: true },
