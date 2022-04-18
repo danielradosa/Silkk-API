@@ -84,7 +84,7 @@ router.get("/list/all/:id", verifyToken, (req, res) => {
 });
 
 // Create a new todo list
-router.post("/list/create/:projectId", verifyToken, (req, res) => {
+router.post("/list/create/:id", verifyToken, (req, res) => {
     data = req.body;
     project.findByIdAndUpdate(req.params.id, { $push: { lists: data } })
         .then(data => { res.send(data); })
@@ -92,17 +92,18 @@ router.post("/list/create/:projectId", verifyToken, (req, res) => {
 });
 
 // Delete a todo list
-router.delete("/list/delete/:listId", verifyToken, (req, res) => {
+router.delete("/list/delete/:id/:listId", verifyToken, (req, res) => {
     const id = req.params.id;
-    project.findByIdAndUpdate(id, { $pull: { lists: { _id: id } } })
+    const listId = req.params.listId;
+    project.findByIdAndUpdate(id, { $pull: { lists: { _id: listId } } })
         .then(data => {
             if (!data) {
-                res.status(404).send({ message: "Cannot delete todo list with id: " + id });
+                res.status(404).send({ message: "Cannot delete list with id: " + listId });
             } else {
-                res.send({ message: "Todo list was deleted." })
+                res.send({ message: "List was deleted." })
             }
         })
-        .catch(err => { res.status(500).send({ message: "Error deleting todo list with id: " + id }); })
+        .catch(err => { res.status(500).send({ message: "Error deleting list with id: " + listId }); })
 });
 
 // Get all tasks in a todo list
