@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const User = require('../models/user');
-const Project = require('../models/project');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation');
@@ -66,6 +65,24 @@ router.get("/:email", async (req, res) => {
         return res.status(400).json({ error: "User not found" });
     }
     res.json({ error: null, data: user });
+});
+
+// Delete user by email
+router.delete("/delete/:email", async (req, res) => {
+    const user = await User.findOneAndDelete({ email: req.params.email });
+    if (!user) {
+        return res.status(400).json({ error: "User not found" });
+    }
+    res.json({ error: null, data: user });
+});
+
+// Get all users
+router.get("/", async (req, res) => {
+    const users = await User.find();
+    if (!users) {
+        return res.status(400).json({ error: "Users not found" });
+    }
+    res.json({ error: null, data: users });
 });
 
 // User Logout

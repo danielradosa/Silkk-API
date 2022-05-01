@@ -106,18 +106,19 @@ router.delete("/list/delete/:id/:listId", verifyToken, (req, res) => {
         .catch(err => { res.status(500).send({ message: "Error deleting list with id: " + listId }); })
 });
 
-// Get all tasks in a todo list
-router.get("/list/task/all/:projId/:listId", verifyToken, (req, res) => {
-    project.findById(req.params.projId)
-        .then(data => {
-            for (let i = 0; i < data.lists.length; i++) {
-                if (data.lists[i]._id == req.params.listId) {
-                    res.send(data.lists[i].todo);
-                }
+// Get all todos in a list
+router.get("/list/all/:id/:listId", verifyToken, (req, res) => {
+    project.findById(req.params.id)
+    .then(data => {
+        for (let i = 0; i < data.lists.length; i++) {
+            if (data.lists[i]._id == req.params.listId) {
+                res.send(data.lists[i].todo);
             }
-        })
-        .catch(err => { res.status(500).send({ message: err.message }); })
+        }
+    })
+    .catch(err => { res.status(500).send({ message: err.message }); })
 });
+
 
 // Create new todo task in list
 router.post("/list/task/create/:projId/:listId", verifyToken, (req, res) => {
