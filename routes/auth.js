@@ -58,6 +58,9 @@ router.post("/login", async (req, res) => {
     })
 });
 
+// Get specific user with admin access
+
+
 // Get user by email
 router.get("/:email", async (req, res) => {
     const user = await User.findOne({ email: req.params.email });
