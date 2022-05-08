@@ -3,6 +3,7 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation');
+const { verifyToken } = require("../validation");
 
 // User Registration
 router.post("/register", async (req, res) => {
@@ -58,11 +59,8 @@ router.post("/login", async (req, res) => {
     })
 });
 
-// Get specific user with admin access
-
-
-// Get user by email
-router.get("/:email", async (req, res) => {
+// Get specific user by email
+router.get("/:email", verifyToken, async (req, res) => {
     const user = await User.findOne({ email: req.params.email });
     if (!user) {
         return res.status(400).json({ error: "User not found" });
@@ -71,7 +69,7 @@ router.get("/:email", async (req, res) => {
 });
 
 // Delete user by email
-router.delete("/delete/:email", async (req, res) => {
+router.delete("/delete/:email", verifyToken, async (req, res) => {
     const user = await User.findOneAndDelete({ email: req.params.email });
     if (!user) {
         return res.status(400).json({ error: "User not found" });
@@ -80,12 +78,11 @@ router.delete("/delete/:email", async (req, res) => {
 });
 
 // Get all users
-router.get("/", async (req, res) => {
-    const users = await User.find();
-    if (!users) {
-        return res.status(400).json({ error: "Users not found" });
-    }
-    res.json({ error: null, data: users });
+router.get("/", verifyToken, (req, res) => {
+    data = req.body;
+    User.find(data)
+        .then(data => { res.send(data); })
+        .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
 // User Logout
