@@ -11,14 +11,10 @@ let projectSchema = new Schema({
 	associates: { type: Array, required: false },
 	lists: [{
 		listTitle: { type: String, required: true, min: 3, max: 255 },
-		tasks: [{ 
+		todo: [{
 			taskTitle: { type: String, required: true, min: 3, max: 255 },
 			status: { type: Boolean, required: true },
-		 }]	
-	}],
-	todo: [{
-		taskTitle: { type: String, required: true, min: 3, max: 255 },
-		status: { type: Boolean, required: true },
+		}],
 	}],
 	notes: [{
 		noteTitle: { type: String, required: true, min: 3, max: 255 },
