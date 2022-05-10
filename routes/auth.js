@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Get specific user by email
-router.get("/:email", verifyToken, async (req, res) => {
+router.get("/:email", async (req, res) => {
     const user = await User.findOne({ email: req.params.email });
     if (!user) {
         return res.status(400).json({ error: "User not found" });
