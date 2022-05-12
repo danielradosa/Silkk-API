@@ -186,6 +186,320 @@ paths:
         400:
           description: NOT OK
           content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Get project
+  /api/project/all/{email}:
+    get:
+      tags:
+       - project
+      summary: Get all projects by auther
+      description: Get all project by auther
+      operationId: getExistingProjects
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Get all project by auther
+  /api/project/addfavorite/{id}:
+    put:
+      tags:
+      - project
+      - update
+      summary: Add to favorite
+      description: Add project to favorite
+      operationId: updateProject
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      requestBody:
+        description: Add project to favorite
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/projectCU'
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: ACCESS DENIED
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Add project favorite
+    /api/project/removefavorite/{id}:
+    put:
+      tags:
+      - project
+      - update
+      summary: Remove to favorite
+      description: Remove project to favorite
+      operationId: updateProject
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      requestBody:
+        description: Remove project to favorite
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/projectCU'
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: ACCESS DENIED
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Remove project favorite
+  /api/project/delete/{id}:
+    delete:
+      tags:
+      - project
+      - delete
+      summary: Delete project
+      description: Delete a project
+      operationId: deleteProject
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+  
+  /////////////////////////// TODO STUF ////////////////
+  /api/project/list/all/{id}:
+    get:
+      tags:
+       - lists
+      summary: Get all list in a project
+      description: Get all list in a specific project
+      operationId: getExistingProjectLists
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Get all list in a project 
+  /api/project/list/create/{id}:
+    post:
+      tags:
+      - project
+      - list
+      summary: New list in a Project
+      description: Create list in a new project
+      operationId: postNewList
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      requestBody:
+        description: Create list in a new project
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/listCU'
+        required: false
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          descriptiono: ACCESS DENIED
+          content: {}
+        401:
+          desscription: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Create list in a project
+  /api/project/list/delete/{id}/{list}:
+    delete:
+      tags:
+      - list
+      - delete
+      summary: Delete list in a project
+      description: Delete list in a project
+      operationId: deleteProjectLists
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: list
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+  
+
+  //////////////////////// NOTE STUFF ///////////////////
+  /api/project/note/{id}:
+    post:
+      tags:
+      - project
+      - note
+      summary: New note in a Project
+      description: Create note in a new project
+      operationId: postNewNote
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      requestBody:
+        description: Create note in a new project
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/noteCU'
+        required: false
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          descriptiono: ACCESS DENIED
+          content: {}
+        401:
+          desscription: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Create note in a project
+  /api/project/note/delete/{id}/{note}:
+    delete:
+      tags:
+      - note
+      - delete
+      summary: Delete note in a project
+      description: Delete note in a project
+      operationId: deleteProjectNote
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: note
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+  /api/project/note/all/{id}:
+    get:
+      tags:
+        - note
+      summary: Get all note in a project
+      description: Get all ntoe in a specific project
+      operationId: getExistingProjectNote
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Get all note in a project 
+
+  
+
   ////////////////////////////////////// Schemas
   components:
     securitySchemes:
