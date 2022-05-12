@@ -1,0 +1,195 @@
+openapi: 3.0.1
+info:
+  title: Silkk API
+  version: 1.0.0
+servers:
+- url: https://sill-api-app.herokuapp.com/
+paths:
+//////////////////////// USERS ///////////////////
+  /api/welcome:
+    get:
+      tags:
+      - user
+      summary: Welcome message
+      description: Sharing the love with welcome message
+      operationId: getWelcomeMessage
+      responses:
+        200:
+          description: OK
+          content: {}
+  /api/user/register:
+    post:
+      tags:
+      - user
+      summary: Create new user
+      description: Register a new user
+      operationId: postNewUser
+      requestBody:
+        description: The user to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userCreate'
+        required: false
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+      x-codegen-request-body-name: User registration
+  /api/user/login:
+    post:
+      tags:
+      - user
+      summary: Login user
+      description: Login as user
+      operationId: loginExistingUser
+      requestBody:
+        description: The user to login
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userLogin'
+        required: false
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+      x-codegen-request-body-name: User login
+  /api/user/{email}:
+    get:
+      tags:
+      - user
+      summary: Get user
+      description: Get specific user
+      operationId: getExistingUser
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+  /api/user:
+    get:
+      tags:
+      - user
+      summary: All users
+      description: Get all the users
+      operationId: getAllUsers
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+  /api/user/delete/{email}:
+    delete:
+      tags:
+      - user
+      - delete
+      summary: Delete user
+      description: Delete a user
+      operationId: deleteUser
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+  ///////////////////////////// PROJECT STUFF ////////////
+  /api/project/create:
+    post:
+      tags:
+      - project
+      summary: New Project
+      description: Create a new project
+      operationId: postNewProject
+      requestBody:
+        description: Create a new project
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/projectCU'
+        required: false
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          descriptiono: ACCESS DENIED
+          content: {}
+        401:
+          desscription: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+      x-codegen-request-body-name: Create project
+  /api/project/all:
+    get:
+      tags:
+      - projects
+      summary: All projects
+      description: Get all the projects
+      operationId: getAllProjects
+      responses:
+        200:
+          description: OK
+          content: {}
+        400: 
+          description: OK
+          content: {}
+  /api/project/{id}:
+    get:
+      tags:
+      - project
+      summary: Get project
+      description: Get specific project
+      operationId: getExistingProject
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+  ////////////////////////////////////// Schemas
+  components:
+    securitySchemes:
+      ApiKeyAuth:
+        in: header
+        name: auth-token
+        type: apiKey
