@@ -35,13 +35,6 @@ router.get("/all/:authorEmail", verifyToken, (req, res) => {
         .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
-// Update a project
-router.put("/updatetitle/:id", verifyToken, (req, res) => {
-    project.findByIdAndUpdate(req.params.id, req.body)
-        .then(data => { res.send(data); })
-        .catch(err => { res.status(500).send({ message: err.message }); })
-});
-
 // Add specific project to favorites
 router.put("/addfavorite/:id", verifyToken, (req, res) => {
     data = req.params.id;
@@ -76,7 +69,7 @@ router.delete("/delete/:id", verifyToken, (req, res) => {
 
 // TODO CRUD /////////////////
 
-// Get all todo lists
+// Get all todo lists in a project
 router.get("/list/all/:id", verifyToken, (req, res) => {
     project.findById(req.params.id)
     .then(data => { res.send(data.lists); })
@@ -160,15 +153,6 @@ router.delete("/list/task/delete/:projId/:listId/:taskId", verifyToken, (req, re
 router.post("/note/create/:id", verifyToken, (req, res) => {
     data = req.body;
     project.findByIdAndUpdate(req.params.id, { $push: { notes: data } })
-        .then(data => { res.send(data); })
-        .catch(err => { res.status(500).send({ message: err.message }); })
-});
-
-// Update a note
-router.put("/note/update/:id/:noteId", verifyToken, (req, res) => {
-    const id = req.params.id;
-    const noteId = req.params.noteId;
-    project.findByIdAndUpdate(id, { $set: { notes: req.body, arrayFilters: [{ "elem._id": noteId }] } })
         .then(data => { res.send(data); })
         .catch(err => { res.status(500).send({ message: err.message }); })
 });
