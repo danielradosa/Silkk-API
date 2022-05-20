@@ -247,7 +247,7 @@ paths:
       security:
       - ApiKeyAuth: []
       x-codegen-request-body-name: Add project favorite
-    /api/project/removefavorite/{id}:
+  /api/project/removefavorite/{id}:
     put:
       tags:
       - project
@@ -402,7 +402,189 @@ paths:
           content: {}
       security:
       - ApiKeyAuth: []
-  
+  /api/project/list/task/all/{proj}/{list}:
+    get:
+      tags:
+      - task
+      - get
+      summary: Get all tasks in specific list
+      description: Get all tasks in spec. list
+      operationId: allTaskList
+      parameters:
+      - name: proj
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: list
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+  /api/project/list/task/create/{proj}/{list}:
+    post:
+      tags:
+      - task
+      - post
+      summary: Create a task in a list
+      description: Create a task in a list
+      operationId: createTaskList
+      parameters:
+      - name: proj
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: list
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+  /api/project/list/task/complete/{proj}/{list}/{todo}:
+    put:
+      tags:
+      - task
+      - put
+      summary: Complete a task in a list
+      description: Complete  a task in a list
+      operationId: completeTaskList
+      parameters:
+      - name: proj
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: list
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: todo
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+  /api/project/list/task/uncomplete/{proj}/{list}/{todo}:
+    put:
+      tags:
+      - task
+      - put
+      summary: UnComplete a task in a list
+      description: UnComplete  a task in a list
+      operationId: UncompleteTaskList
+      parameters:
+      - name: proj
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: list
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: todo
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
+  /api/project/list/task/delete/{id}/{list}/{todo}:
+    delete:
+      tags:
+      - task
+      - delete
+      summary: Delete task in a project
+      description: Delete task in a project
+      operationId: deleteProjectTask
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: list
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      - name: todo
+        in: path
+        required: true
+        schema:
+          type: string
+          format: byte
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: NOT OK
+          content: {}
+        401:
+          description: INVALID TOKEN
+          content: {}
+      security:
+      - ApiKeyAuth: []
 
   //////////////////////// NOTE STUFF ///////////////////
   /api/project/note/{id}:
@@ -497,7 +679,6 @@ paths:
       security:
       - ApiKeyAuth: []
       x-codegen-request-body-name: Get all note in a project 
-
   
 
   ////////////////////////////////////// Schemas
@@ -507,3 +688,58 @@ paths:
         in: header
         name: auth-token
         type: apiKey
+    schemas:
+      userCreate:
+        required:
+        - email
+        - password
+        - userName
+        type: object
+        properties:
+          userName:
+            type: string
+          email:
+            type: string
+          password:
+            type: string
+      userLogin:
+        required:
+        - email
+        - password
+        type: object
+        properties:
+          email:
+            type: string
+          password:
+            type: string
+      projectCU:
+        required:
+        - title
+        - favourite
+        - description
+        - deadline
+        - author
+        - authorEmail
+        - associates
+        - lists
+        - notes
+        type: object
+        properties:
+          title:
+            type: string
+          favourite:
+            type: boolean
+          description:
+            type: string
+          deadline:
+            type: string
+          author:
+            type: string
+          authorEmail:
+            type: string
+          associates:
+            type: array
+          lists:
+            type: array
+          notes:
+            type: array
