@@ -5,7 +5,7 @@ info:
 servers:
 - url: https://sill-api-app.herokuapp.com/
 paths:
-//////////////////////// USERS ///////////////////
+  //////////////////////// USER STUFF ///////////////////
   /api/welcome:
     get:
       tags:
@@ -123,6 +123,7 @@ paths:
           content: {}
       security:
       - ApiKeyAuth: []
+
   ///////////////////////////// PROJECT STUFF ////////////
   /api/project/create:
     post:
@@ -309,7 +310,7 @@ paths:
       security:
       - ApiKeyAuth: []
   
-  /////////////////////////// TODO STUF ////////////////
+  /////////////////////////// LIST STUFF ////////////////
   /api/project/list/all/{id}:
     get:
       tags:
@@ -402,6 +403,8 @@ paths:
           content: {}
       security:
       - ApiKeyAuth: []
+  
+  /////////////////////////// TODO STUFF ////////////////
   /api/project/list/task/all/{proj}/{list}:
     get:
       tags:
@@ -456,6 +459,12 @@ paths:
         schema:
           type: string
           format: byte
+      requestBody:
+        description: Create todo in a project
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/todoCU'
       responses:
         200:
           description: OK
@@ -495,6 +504,12 @@ paths:
         schema:
           type: string
           format: byte
+      requestBody:
+        description: Complete todo in a project
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/todoCU'
       responses:
         200:
           description: OK
@@ -534,6 +549,12 @@ paths:
         schema:
           type: string
           format: byte
+      requestBody:
+        description: Uncomplete todo in a project
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/todoCU'
       responses:
         200:
           description: OK
@@ -681,7 +702,7 @@ paths:
       x-codegen-request-body-name: Get all note in a project 
   
 
-  ////////////////////////////////////// Schemas
+  //////////////////// SCHEMAS //////////////////////////
   components:
     securitySchemes:
       ApiKeyAuth:
@@ -743,3 +764,30 @@ paths:
             type: array
           notes:
             type: array
+      noteCU:
+        required:
+        - noteTitle
+        - content
+        type: object
+        properties:
+          noteTitle:
+            type: string
+          content:
+            type: string
+      listCU:
+        required:
+        - listTitle
+        type: object
+        properties:
+          listTitle:
+            type: string
+      todoCU:
+        required:
+        - taskTitle
+        - status
+        type: object
+        properties:
+          taskTitle:
+            type: string
+          status:
+            type: boolean
