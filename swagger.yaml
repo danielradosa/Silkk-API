@@ -5,7 +5,6 @@ info:
 servers:
 - url: https://sill-api-app.herokuapp.com/
 paths:
-  //////////////////////// USER STUFF ///////////////////
   /api/welcome:
     get:
       tags:
@@ -29,7 +28,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/userCreate'
+              $ref: '#/components/schemas/userCU'
         required: false
       responses:
         200:
@@ -123,8 +122,6 @@ paths:
           content: {}
       security:
       - ApiKeyAuth: []
-
-  ///////////////////////////// PROJECT STUFF ////////////
   /api/project/create:
     post:
       tags:
@@ -309,8 +306,6 @@ paths:
           content: {}
       security:
       - ApiKeyAuth: []
-  
-  /////////////////////////// LIST STUFF ////////////////
   /api/project/list/all/{id}:
     get:
       tags:
@@ -403,8 +398,6 @@ paths:
           content: {}
       security:
       - ApiKeyAuth: []
-  
-  /////////////////////////// TODO STUFF ////////////////
   /api/project/list/task/all/{proj}/{list}:
     get:
       tags:
@@ -606,8 +599,6 @@ paths:
           content: {}
       security:
       - ApiKeyAuth: []
-
-  //////////////////////// NOTE STUFF ///////////////////
   /api/project/note/{id}:
     post:
       tags:
@@ -700,94 +691,91 @@ paths:
       security:
       - ApiKeyAuth: []
       x-codegen-request-body-name: Get all note in a project 
-  
-
-  //////////////////// SCHEMAS //////////////////////////
-  components:
-    securitySchemes:
-      ApiKeyAuth:
-        in: header
-        name: auth-token
-        type: apiKey
-    schemas:
-      userCreate:
-        required:
-        - email
-        - password
-        - userName
-        type: object
-        properties:
-          userName:
-            type: string
-          email:
-            type: string
-          password:
-            type: string
-      userLogin:
-        required:
-        - email
-        - password
-        type: object
-        properties:
-          email:
-            type: string
-          password:
-            type: string
-      projectCU:
-        required:
-        - title
-        - favourite
-        - description
-        - deadline
-        - author
-        - authorEmail
-        - associates
-        - lists
-        - notes
-        type: object
-        properties:
-          title:
-            type: string
-          favourite:
-            type: boolean
-          description:
-            type: string
-          deadline:
-            type: string
-          author:
-            type: string
-          authorEmail:
-            type: string
-          associates:
-            type: array
-          lists:
-            type: array
-          notes:
-            type: array
-      noteCU:
-        required:
-        - noteTitle
-        - content
-        type: object
-        properties:
-          noteTitle:
-            type: string
-          content:
-            type: string
-      listCU:
-        required:
-        - listTitle
-        type: object
-        properties:
-          listTitle:
-            type: string
-      todoCU:
-        required:
-        - taskTitle
-        - status
-        type: object
-        properties:
-          taskTitle:
-            type: string
-          status:
-            type: boolean
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      in: header
+      name: auth-token
+      type: apiKey
+  schemas:
+    userCU:
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    userLogin:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    projectCU:
+      required:
+      - title
+      - favourite
+      - description
+      - deadline
+      - author
+      - authorEmail
+      - associates
+      - lists
+      - notes
+      type: object
+      properties:
+        title:
+          type: string
+        favourite:
+          type: boolean
+        description:
+          type: string
+        deadline:
+          type: string
+        author:
+          type: string
+        authorEmail:
+          type: string
+        associates:
+          type: array
+        lists:
+          type: array
+        notes:
+          type: array
+    noteCU:
+      required:
+      - noteTitle
+      - content
+      type: object
+      properties:
+        noteTitle:
+          type: string
+        content:
+          type: string
+    listCU:
+      required:
+      - listTitle
+      type: object
+      properties:
+        listTitle:
+          type: string
+    todoCU:
+      required:
+      - taskTitle
+      - status
+      type: object
+      properties:
+        taskTitle:
+          type: string
+        status:
+          type: boolean
