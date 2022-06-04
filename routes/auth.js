@@ -68,6 +68,21 @@ router.get("/:email", async (req, res) => {
     res.json({ error: null, data: user });
 });
 
+/* // Upload profile picture
+router.post("/upload/:id", verifyToken, async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return res.status(400).json({ error: "User not found" });
+    }
+    user.profilePicture = req.body.profilePicture;
+    try {
+        const savedUser = await user.save();
+        res.json({ error: null, data: savedUser });
+    } catch (error) {
+        res.status(400).json({ error });
+    }
+}); */
+
 // Delete user by email
 router.delete("/delete/:email", verifyToken, async (req, res) => {
     const user = await User.findOneAndDelete({ email: req.params.email });
@@ -84,11 +99,5 @@ router.get("/", verifyToken, (req, res) => {
         .then(data => { res.send(data); })
         .catch(err => { res.status(500).send({ message: err.message }); })
 });
-
-// User Logout
-//router.post("/logout", async () => {
-//    db = db.getSiblingDB('user')
-//   await db.logout()
-//});
 
 module.exports = router;

@@ -12,6 +12,20 @@ router.post("/create", verifyToken, (req, res) => {
         .catch(err => { res.status(500).send({ message: err.message }); })
 });
 
+// Add associates to a project
+router.put("/associates/add/:projectId", verifyToken, (req, res) => {
+    project.findByIdAndUpdate(req.params.projectId, { $push: { associates: req.body.associates } })
+        .then(data => { res.send(data); })
+        .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
+// Get all projects where user is an associate
+router.get("/associates/:userId", verifyToken, (req, res) => {
+    project.find({ associates: req.params.userId })
+        .then(data => { res.send(data); })
+        .catch(err => { res.status(500).send({ message: err.message }); })
+});
+
 // Get all projects ever
 router.get("/all", verifyToken, (req, res) => {
     data = req.body;
